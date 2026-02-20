@@ -106,25 +106,25 @@ $resultado = $conexion->query('SELECT id, nombre, detalle, agregado FROM product
     <h1>CRUD de Productos (LAMP + PHP + MySQLi OO)</h1>
 
     <?php if ($mensaje !== ''): ?>
-        <div class="msg"><?php echo htmlspecialchars($mensaje); ?></div>
+        <div class="msg"><?= htmlspecialchars($mensaje) ?></div>
     <?php endif; ?>
 
     <div class="card">
-        <h2><?php echo $productoEditar ? 'Editar producto' : 'Agregar producto'; ?></h2>
+        <h2><?= $productoEditar ? 'Editar producto' : 'Agregar producto' ?></h2>
         <form method="post" action="index.php">
-            <input type="hidden" name="accion" value="<?php echo $productoEditar ? 'actualizar' : 'crear'; ?>">
+            <input type="hidden" name="accion" value="<?= $productoEditar ? 'actualizar' : 'crear' ?>">
             <?php if ($productoEditar): ?>
-                <input type="hidden" name="id" value="<?php echo (int) $productoEditar['id']; ?>">
+                <input type="hidden" name="id" value="<?= (int) $productoEditar['id'] ?>">
             <?php endif; ?>
 
             <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" name="nombre" required value="<?php echo htmlspecialchars($productoEditar['nombre'] ?? ''); ?>">
+            <input type="text" id="nombre" name="nombre" required value="<?= htmlspecialchars($productoEditar['nombre'] ?? '') ?>">
 
             <label for="detalle">Detalle</label>
-            <textarea id="detalle" name="detalle" rows="3" required><?php echo htmlspecialchars($productoEditar['detalle'] ?? ''); ?></textarea>
+            <textarea id="detalle" name="detalle" rows="3" required><?= htmlspecialchars($productoEditar['detalle'] ?? '') ?></textarea>
 
-            <button class="<?php echo $productoEditar ? 'btn-secondary' : 'btn-primary'; ?>" type="submit">
-                <?php echo $productoEditar ? 'Actualizar' : 'Guardar'; ?>
+            <button class="<?= $productoEditar ? 'btn-secondary' : 'btn-primary' ?>" type="submit">
+                <?= $productoEditar ? 'Actualizar' : 'Guardar' ?>
             </button>
             <?php if ($productoEditar): ?>
                 <a href="index.php" style="margin-left:10px;">Cancelar</a>
@@ -148,13 +148,13 @@ $resultado = $conexion->query('SELECT id, nombre, detalle, agregado FROM product
                 <?php if ($resultado && $resultado->num_rows > 0): ?>
                     <?php while ($fila = $resultado->fetch_assoc()): ?>
                         <tr>
-                            <td><?php echo (int) $fila['id']; ?></td>
-                            <td><?php echo htmlspecialchars($fila['nombre']); ?></td>
-                            <td><?php echo htmlspecialchars($fila['detalle']); ?></td>
-                            <td><?php echo htmlspecialchars($fila['agregado']); ?></td>
+                            <td><?= (int) $fila['id'] ?></td>
+                            <td><?= htmlspecialchars($fila['nombre']) ?></td>
+                            <td><?= htmlspecialchars($fila['detalle']) ?></td>
+                            <td><?= htmlspecialchars($fila['agregado']) ?></td>
                             <td class="acciones">
-                                <a href="index.php?editar=<?php echo (int) $fila['id']; ?>">Editar</a>
-                                <a href="index.php?eliminar=<?php echo (int) $fila['id']; ?>" onclick="return confirm('¿Seguro que quieres eliminar este producto?')">Eliminar</a>
+                                <a href="index.php?editar=<?= (int) $fila['id'] ?>">Editar</a>
+                                <a href="index.php?eliminar=<?= (int) $fila['id'] ?>" onclick="return confirm('¿Seguro que quieres eliminar este producto?')">Eliminar</a>
                             </td>
                         </tr>
                     <?php endwhile; ?>
